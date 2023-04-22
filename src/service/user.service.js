@@ -1,24 +1,47 @@
-import User from "@/models/User.model";
-const mongoose = require("mongoose");
+import UserModel from "@/models/User.model";
+import { sign } from "jsonwebtoken";
 
-export const createUser = async (data) => {
-    try {
-        const newUser = new User(data)
-        console.log(newUser);
-        newUser.save()
-    } catch (error) {
-        console.log(error);
-    }
+const SECRET_WORD = process.env.SECRET_WORD;
+
+export const createUser_service = async ({
+	name,
+	lastname,
+	email,
+	password,
+}) => {
+	try {
+		const oldUser = await UserModel.findOne({ email });
+
+		if (oldUser) return { error: { message: "Correo ya esta registrado" } };
+
+		const newUser = await UserModel.create({
+			name,
+			lastname,
+			email,
+			password: sign(password, SECRET_WORD),
+		});
+
+		console.log(newUser);
+
+		return newUser;
+	} catch (error) {
+		console.log(error);
+	}
 };
 
-export const loginUser = async (data) => {
-    try {
-        const isValid = await User.findOne().where({ username: data.username, password: data.password });
-        if (!isValid) {
-            return 'Datos no validos';
-        }
-        return 'Datos validados';
-    } catch (error) {
-        console.log(error);
-    }
+export const loginUser_service = async ({ email, password }) => {
+	try {
+		const user = await UserModel.findOne({
+			email,
+			password: sign(password, SECRET_WORD),
+		});
+
+		console.log(user);
+		
+		if (!user) return;
+
+		return user;
+	} catch (error) {
+		console.log(error);
+	}
 };
