@@ -1,6 +1,7 @@
 import {
 	getHeroBy_Id,
 	getHeroesBy_Name_service,
+	getHeroesBy_Query_service,
 	getTenHeroes_service,
 } from "@/service/hero.service";
 
@@ -37,6 +38,24 @@ export async function getHeroByName_controller(req, res) {
 
 		if (!hero) return res.status(500).send("error");
 		if (hero.length <= 0) return res.status(404).send("error");
+
+		return res.json(hero);
+	} catch (error) {
+		console.log(error);
+	}
+}
+
+export async function getHeroByQuery_controller(req, res) {
+	try {
+		const { or, name, publisher, alignment, gender, firstAppearance } =
+			req.query;
+
+		const query = { name, publisher, alignment, gender, firstAppearance };
+
+		const hero = await getHeroesBy_Query_service(query, or);
+
+		if (!hero) return res.status(500).send("error: no hay array");
+		if (hero.length <= 0) return res.status(404).send("error: no hay datos");
 
 		return res.json(hero);
 	} catch (error) {
