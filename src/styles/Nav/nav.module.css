@@ -1,0 +1,90 @@
+.container{
+    min-width: 100vw;
+    height: 80px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background: #303036;
+}
+
+.title h2 {
+    font-size: 1.8rem;
+    color:  #30BCED;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    margin-left: 20px;
+ } 
+
+/* Landing */
+
+.container__elL{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: end;
+    flex-grow: 1;
+}
+
+.btn_lo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    height: 40px;
+    width: 100px;
+    border: 1px solid #30BCED;
+    margin-right: 20px;
+    border-radius: 2px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #30BCED;
+}
+
+.btn_re{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    height: 40px;
+    width: 100px;
+    border: 1px solid #30BCED;
+    margin-right: 20px;
+    border-radius: 2px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 0.95rem;
+    background-color: #30BCED;
+    color: #ffff;
+}
+
+
+/* En general */ 
+
+.container__el{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex: 1 1 auto;
+}
+
+.productora{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 10%;
+    margin: 0px 20px 0px 20px;
+    color:  #626262;
+    font-family: 'Inter';
+font-style: normal;
+font-weight: 400;
+}
+
+.productora button{
+    background-color: transparent;
+    border: none;
+    margin: auto;
+}
