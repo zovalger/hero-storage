@@ -35,7 +35,7 @@ export const findById_service = async (id) => {
 
 export const delFolder_service = async (folderId) => {
 	try {
-		// eliminar sus relaciones con los heroes
+		// todo: eliminar sus relaciones con los heroes
 
 		const result = await folderModel.deleteOne({ _id: folderId });
 
