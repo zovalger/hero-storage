@@ -2,14 +2,20 @@ import mongoose from "mongoose";
 import relationModel from "../models/FolderHeroRelation.model";
 
 
-export const createHeroRelation_service = async (idHero, idFolder) => {
-    try {
-        const heroRelation = new relationModel({ idHero, idFolder});
-        const savedRelation = await heroRelation.save();
-        return savedRelation;
-    } catch (error) {
-        console.log(error);
+
+export const createHeroRelation_service = async (heroId, folderId) => {
+  try {
+    const relationExists = await relationModel.exists({ idHero: heroId, idFolder: folderId });
+
+    if (relationExists) {
+      return false;
+    } else {
+      await relationModel.create(heroId, folderId);
+      return true;
     };
+  } catch (error) {
+    console.log(error);
+  };
 };
 
 
@@ -20,9 +26,20 @@ export const findRelationBy_Id = async (id) => {
       return relation;
     } catch (error) {
       console.log(error);
-      return null;
     };
 };
+
+
+
+export const findRelationsBy_FolderId = async (folderId) => {
+  try {
+    const relations = await relationModel.find({ folderId });
+    return relations;
+  } catch (error) {
+    console.log(error);
+  };
+};
+
 
 
 export const deleteRelationBy_Id = async (id) => {

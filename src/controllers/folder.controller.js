@@ -8,7 +8,12 @@ import { newFolder_service,
 
 export async function createNewFolder (req, res) {
 	try {
-        const { name, idUrs } = req.body;
+        const { name } = req.body;
+
+        const { authCookie } = req.cookies;
+        const user = verify(authCookie, process.env.SECRET_WORD);
+        const idUrs = user._id;
+
         const data = { name, idUrs };
         const folderCreated = await newFolder_service(data);
 

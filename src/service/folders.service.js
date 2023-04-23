@@ -4,7 +4,7 @@ import folderModel from "../models/Folder.model";
 
 export const newFolder_service = async (folder) => {
     try {
-      const folderExists = await folderModel.exists({ name: folder.name });
+      const folderExists = await folderModel.exists({ name: folder.name, idUsr: folder.idUsr });
   
       if (folderExists) {
         return false;

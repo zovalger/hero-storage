@@ -1,5 +1,6 @@
 import { createHeroRelation_service,
     findRelationBy_Id,
+    findRelationsBy_FolderId,
     deleteRelationBy_Id
 } from "@/service/folderHeroRelation.service.js";
 
@@ -12,8 +13,10 @@ export async function createNewRelation (req, res) {
         const relationCreated = await createHeroRelation_service(data.idHero, data.idFolder);
 
         if (relationCreated) {
-            console.log(`relacion creada`);
-        } 
+            console.log(`relacion creada entre ${idHero} y ${idFolder} `);
+        } else {
+            console.log(`ya existe una relacion entre ${idHero} y ${idFolder}`);
+        };
 
 	} catch (error) {
         console.log(error);
@@ -32,6 +35,20 @@ export async function findRelationById (req, res) {
       console.log(error);
     };
 };
+
+
+
+export async function findRelationByFolderId (req, res) {
+  try {
+    const { folderId } = req.query;
+    const relations = await findRelationsBy_FolderId(folderId);
+
+    console.log(`relacion encontrada: ${relations}`);
+  } catch (error) {
+    console.log(error);
+  };
+};
+
 
 
 export async function deleteRelationById(req, res) {
