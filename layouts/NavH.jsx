@@ -46,13 +46,20 @@ const titulo = "HeroStorage"
                         <button>DC</button>
                     </div>
 
-                    <div>
-                        buscador
+                    <div className={style.buscador}>
+                        <form action="">
+                        <input 
+                        type="text"
+                        />
+                        <button className={style.search}>a</button>
+                        </form>
                     </div>
-                    <div>
-                        <button>Usuario</button>
-                        <button>salir</button>
+
+                    <div className={style.funciones}>
+                        <button className={style.user}>Usuario</button>
+                        <button className={style.logout}>Salir</button>
                     </div>
+
                 </div>
             </div>
 

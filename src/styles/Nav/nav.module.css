@@ -75,16 +75,73 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 10%;
+    flex-grow: 1;
     margin: 0px 20px 0px 20px;
-    color:  #626262;
-    font-family: 'Inter';
-font-style: normal;
-font-weight: 400;
+    
+  
+
 }
 
 .productora button{
     background-color: transparent;
     border: none;
     margin: auto;
+    color:  #626262;
+      font-family: 'Inter';
+      font-size: 1rem;
+font-style: normal;
+font-weight: 400;
+}
+
+.buscador{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.buscador input{
+    height: 35px;
+    width: 230px;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.search{
+    height: 35px;
+    width: 35px;
+    background-color: #30BCED;
+    border: none;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.funciones{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    margin: 0px 20px 0px 20px;
+}
+
+.funciones button{
+    background-color: transparent;
+    border: none;
+    margin: auto;
+}
+
+.user{
+   color: #30BCED;
+   font-family: 'Inter';
+   font-size: 1.2rem;
+font-style: normal;
+font-weight: 400;
+ }
+
+ .logout{
+   color:#F0544F;
+   font-family: 'Inter';
+   font-size: 1.2rem;
+font-style: normal;
+font-weight: 400;
 }
