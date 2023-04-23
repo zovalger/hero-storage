@@ -4,7 +4,9 @@ import {
 	getByName_SuperHeroApi,
 } from "./superHeroApi.service";
 
-const createHeroDocument = async (hero) => {
+const createHeroDocument = async (hero = null) => {
+	if (!hero) return;
+
 	try {
 		const oldHero = await HeroModel.findOne().where({ id: hero.id });
 
@@ -45,15 +47,17 @@ export const getHeroBy_Id = async (id) => {
 	try {
 		console.log(`buscando heroe: ${id}`);
 
-		let hero = await HeroModel.findOne().where({ id });
+		const hero = await HeroModel.findOne().where({ _id: id });
 
-		if (!hero) {
-			console.log(`no encontrado en db`);
+		if (!hero) return;
 
-			const heroData = await getById_SuperHeroApi(id);
+		// if (!hero) {
+		// 	console.log(`no encontrado en db`);
 
-			hero = await saveHeroInDB(heroData);
-		}
+		// 	const heroData = await getById_SuperHeroApi(id);
+
+		// 	hero = await saveHeroInDB(heroData);
+		// }
 
 		return hero;
 	} catch (error) {
@@ -178,13 +182,19 @@ export async function getTenHeroes_service() {
 
 		await Promise.all(
 			await noIdsInLocal.map(async (id) => {
-				const heroData = await getById_SuperHeroApi(id);
+				try {
+					const heroData = await getById_SuperHeroApi(id);
 
-				console.log(id);
+					if (heroData) return;
 
-				heroFromCloud.push(heroData);
+					console.log(id);
 
-				await new Promise((resolve) => setTimeout(resolve, 1050));
+					heroFromCloud.push(heroData);
+
+					await new Promise((resolve) => setTimeout(resolve, 1050));
+				} catch (error) {
+					console.log(error);
+				}
 			})
 		);
 
