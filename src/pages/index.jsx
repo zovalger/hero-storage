@@ -1,5 +1,7 @@
 import Head from "next/head";
 
+import Landing from './../../components/Landing';
+
 export default function Home() {
   return (
     <>
@@ -16,6 +18,13 @@ export default function Home() {
         rel="stylesheet" />
         
 			</Head>
+      
+      <main>
+        <section>
+          <Landing />
+        </section>
+      </main>
+
         </div>
     </>
   )
