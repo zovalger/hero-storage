@@ -1,8 +1,10 @@
 import { newFolder_service, 
     findByUserId_service,
-    findByName_service,
+    findById_service,
     delFolder_service
 } from "@/service/folders.service";
+
+//Import cookie 
 
 
 
@@ -45,15 +47,15 @@ export async function findFoldersByUser(req, res) {
 
 
 
-export async function findFolderByName(req, res) {
+export async function findFolderById (req, res) {
     try {
-      const { name } = req.params;
-      const folder = await findByName_service(name);
+      const { folderId } = req.params;
+      const folder = await findById_service(folderId);
   
       if (folder) {
         console.log(`Carpeta encontrada: ${folder}`);
       } else {
-        console.log(`No se encontró ninguna carpeta con el nombre "${name}"`);  
+        console.log(`No se encontró ninguna carpeta con el id "${folderId}"`);  
       };
     } catch (error) {
       console.log(error);

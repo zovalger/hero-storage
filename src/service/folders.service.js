@@ -30,9 +30,9 @@ export const findByUserId_service = async (idUsr) => {
 
 
 
-export const findByName_service = async (name) => {
+export const findById_service = async (id) => {
     try {
-      const folder = await folderModel.findOne({ name });
+      const folder = await folderModel.findOne({ id });
       return folder;
     } catch (error) {
       console.log(error);

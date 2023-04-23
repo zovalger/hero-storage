@@ -43,7 +43,7 @@ export async function findRelationByFolderId (req, res) {
     const { folderId } = req.query;
     const relations = await findRelationsBy_FolderId(folderId);
 
-    console.log(`relacion encontrada: ${relations}`);
+    console.log(`relacion(es) encontrada(s): ${relations}`);
   } catch (error) {
     console.log(error);
   };
