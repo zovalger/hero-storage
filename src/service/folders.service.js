@@ -33,9 +33,24 @@ export const findById_service = async (id) => {
 	}
 };
 
+export const updateFolderName_service = async (folderId, newName) => {
+	try {
+		const folder = await folderModel.findById(folderId);
+
+		if (!folder) return { error: { message: "carpeta no existe"}};
+
+		folder.name = newName;
+	  	const updatedFolder = await folder.save();
+	  	return updatedFolder;
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+
 export const delFolder_service = async (folderId) => {
 	try {
-		// eliminar sus relaciones con los heroes
+		// todo: eliminar sus relaciones con los heroes
 
 		const result = await folderModel.deleteOne({ _id: folderId });
 
