@@ -33,6 +33,20 @@ export const findById_service = async (id) => {
 	}
 };
 
+export const updateFolderName_service = async (idFolder, newName) => {
+	try {
+		const folder = await folderModel.findById(idFolder);
+
+		if (!folder) return { error: { message: "carpeta no existe" } };
+
+		folder.name = newName;
+
+		return await folder.save();
+	} catch (error) {
+		console.log(error);
+	}
+};
+
 export const delFolder_service = async (idFolder) => {
 	try {
 		// todo: eliminar sus relaciones con los heroes

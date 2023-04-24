@@ -2,7 +2,8 @@ import {
 	newFolder_service,
 	findByUserId_service,
 	findById_service,
-	delFolder_service,
+	updateFolderName_service,
+	delFolder_service
 } from "@/service/folders.service";
 
 //Import cookie
@@ -57,6 +58,20 @@ export async function findFolderById(req, res) {
 		console.log(error);
 	}
 }
+
+export async function updateFolderName(req, res) {
+	try {
+		const { folderId, newName } = req.query;
+		const updatedFolder = await updateFolderName_service(folderId, newName);
+
+		if (!updatedFolder) console.log("No se encontro o no se pudo actualizar la carpeta");
+		if (updatedFolder.error) console.log(folder.error);
+
+		console.log(`Nombre de la carpeta actualizado a ${newName}`)
+	} catch (error) {
+		console.log(error);
+	}
+};
 
 export async function deleteFolder(req, res) {
 	try {
