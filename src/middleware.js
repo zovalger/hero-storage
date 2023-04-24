@@ -19,8 +19,5 @@ export async function middleware(request) {
 }
 
 export const config = {
-	matcher: [
-		"/api/hero/:path*",
-		// "/api/carpetaOComoLlamasteLaRuta/:path*"
-	],
+	matcher: ["/api/hero/:path*", "/api/folder/:path*"],
 };

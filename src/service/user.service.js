@@ -1,5 +1,6 @@
 import UserModel from "@/models/User.model";
 import { sign } from "jsonwebtoken";
+import { newFolder_service } from "./folders.service";
 
 const SECRET_WORD = process.env.SECRET_WORD;
 
@@ -21,6 +22,8 @@ export const createUser_service = async ({
 			password: sign(password, SECRET_WORD),
 		});
 
+		await newFolder_service("favorite", newUser._id);
+
 		console.log(newUser);
 
 		return newUser;
@@ -37,7 +40,7 @@ export const loginUser_service = async ({ email, password }) => {
 		});
 
 		console.log(user);
-		
+
 		if (!user) return;
 
 		return user;

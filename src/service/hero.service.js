@@ -208,7 +208,7 @@ export async function getTenHeroes_service() {
 }
 
 export async function getTheseHeroes(ids) {
-	const heroes = await HeroModel.find().where("id").in(ids);
-
+	const heroes = await HeroModel.find().where("_id").in(ids);
+	console.log(heroes);
 	return heroes;
 }

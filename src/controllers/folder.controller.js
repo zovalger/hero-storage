@@ -3,8 +3,10 @@ import {
 	findByUserId_service,
 	findById_service,
 	updateFolderName_service,
-	delFolder_service
+	delFolder_service,
+	getHeroesInFolder_service,
 } from "@/service/folders.service";
+import { verify } from "jsonwebtoken";
 
 //Import cookie
 
@@ -18,12 +20,18 @@ export async function createNewFolder(req, res) {
 
 		const folder = await newFolder_service(name, idUser);
 
-		if (!folder) console.log("no se creo la carpeta");
-		if (folder.error) console.log(folder.error);
+		if (!folder)
+			return res
+				.status(500)
+				.json({ error: { message: "no se creo la carpeta" } });
+
+		if (folder.error) return res.status(500).json(folder);
 
 		console.log(
-			`carpeta creada con el nombre ${username} por el usuario ${idUser} `
+			`carpeta creada con el nombre "${name}" por el usuario ${idUser} `
 		);
+
+		return res.status(200).json(folder);
 	} catch (error) {
 		console.log(error);
 	}
@@ -35,10 +43,10 @@ export async function findFoldersByUser(req, res) {
 		const user = verify(authCookie, process.env.SECRET_WORD);
 
 		const folders = await findByUserId_service(user._id);
-
-		return console.log(
+		console.log(
 			`Se encontraron ${folders.length} carpetas para el usuario con ID ${user._id}`
 		);
+		return res.status(200).json(folders);
 	} catch (error) {
 		console.log(error);
 	}
@@ -51,7 +59,7 @@ export async function findFolderById(req, res) {
 
 		if (!folder)
 			console.log(`No se encontró ninguna carpeta con el id "${idFolder}"`);
-		if (folder.error) console.log(folder.error);
+		if (folder.error) console.log(folder);
 
 		console.log(`Carpeta encontrada: ${folder}`);
 	} catch (error) {
@@ -61,28 +69,42 @@ export async function findFolderById(req, res) {
 
 export async function updateFolderName(req, res) {
 	try {
-		const { folderId, newName } = req.query;
-		const updatedFolder = await updateFolderName_service(folderId, newName);
-
-		if (!updatedFolder) console.log("No se encontro o no se pudo actualizar la carpeta");
-		if (updatedFolder.error) console.log(folder.error);
-
-		console.log(`Nombre de la carpeta actualizado a ${newName}`)
-	} catch (error) {
-		console.log(error);
-	}
-};
-
-export async function deleteFolder(req, res) {
-	try {
 		const { idFolder } = req.query;
-		const folderDeleted = await delFolder_service(idFolder);
+		const { name } = req.body;
 
-		if (!folderDeleted)
-			console.log(`No se encontró ninguna carpeta con el ID ${idFolder}`);
+		const updatedFolder = await updateFolderName_service(idFolder, name);
 
-		console.log(`carpeta eliminada con el ID ${idFolder}`);
+		if (!updatedFolder)
+			return res
+				.status(404)
+				.json({ error: { messaje: "carpeta no encontrada" } });
+
+		if (updatedFolder.error) return res.status(500).json(updatedFolder);
+
+		console.log(`Nombre de la carpeta actualizado a ${name}`);
+		return res.status(200).json(updatedFolder);
 	} catch (error) {
 		console.log(error);
 	}
 }
+
+export async function deleteFolder(req, res) {
+	try {
+		const { idFolder } = req.query;
+
+		const folderDeleted = await delFolder_service(idFolder);
+
+		if (!folderDeleted)
+			return res
+				.status(404)
+				.json({ error: { message: "No se encontró ninguna carpeta" } });
+
+		console.log(`carpeta eliminada con el ID ${idFolder}`);
+		return res
+			.status(200)
+			.json({ success: true, message: "Carpeta eliminada" });
+	} catch (error) {
+		console.log(error);
+	}
+}
+
