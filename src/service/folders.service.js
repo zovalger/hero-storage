@@ -33,11 +33,11 @@ export const findById_service = async (id) => {
 	}
 };
 
-export const delFolder_service = async (folderId) => {
+export const delFolder_service = async (idFolder) => {
 	try {
 		// todo: eliminar sus relaciones con los heroes
 
-		const result = await folderModel.deleteOne({ _id: folderId });
+		const result = await folderModel.deleteOne({ _id: idFolder });
 
 		return result.deletedCount > 0;
 	} catch (error) {

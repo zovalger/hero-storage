@@ -45,11 +45,11 @@ export async function findFoldersByUser(req, res) {
 
 export async function findFolderById(req, res) {
 	try {
-		const { folderId } = req.query;
-		const folder = await findById_service(folderId);
+		const { idFolder } = req.query;
+		const folder = await findById_service(idFolder);
 
 		if (!folder)
-			console.log(`No se encontró ninguna carpeta con el id "${folderId}"`);
+			console.log(`No se encontró ninguna carpeta con el id "${idFolder}"`);
 		if (folder.error) console.log(folder.error);
 
 		console.log(`Carpeta encontrada: ${folder}`);
@@ -60,13 +60,13 @@ export async function findFolderById(req, res) {
 
 export async function deleteFolder(req, res) {
 	try {
-		const { folderId } = req.query;
-		const folderDeleted = await delFolder_service(folderId);
+		const { idFolder } = req.query;
+		const folderDeleted = await delFolder_service(idFolder);
 
 		if (!folderDeleted)
-			console.log(`No se encontró ninguna carpeta con el ID ${folderId}`);
+			console.log(`No se encontró ninguna carpeta con el ID ${idFolder}`);
 
-		console.log(`carpeta eliminada con el ID ${folderId}`);
+		console.log(`carpeta eliminada con el ID ${idFolder}`);
 	} catch (error) {
 		console.log(error);
 	}

@@ -8,22 +8,20 @@ import {
 export async function createNewRelation(req, res) {
 	try {
 		const { idHero, idFolder } = req.query;
-		const data = { idHero, idFolder };
-		const relationCreated = await createHeroRelation_service(
-			data.idHero,
-			data.idFolder
-		);
+		const relation = await createHeroRelation_service(idHero, idFolder);
 
-		if (relationCreated) {
-			console.log(`relacion creada entre ${idHero} y ${idFolder} `);
-		} else {
-			console.log(`ya existe una relacion entre ${idHero} y ${idFolder}`);
-		}
+		if (!relation)
+			console.log({ error: { message: "no se pudo realizar la relacion" } });
+
+		if (relation.error) console.log(relation.error);
+
+		console.log(`relacion creada entre ${idHero} y ${idFolder} `);
 	} catch (error) {
 		console.log(error);
 	}
 }
 
+// todo: revisar si es necesaria
 export async function findRelationById(req, res) {
 	try {
 		const { id } = req.query;
@@ -37,8 +35,8 @@ export async function findRelationById(req, res) {
 
 export async function findRelationByFolderId(req, res) {
 	try {
-		const { folderId } = req.query;
-		const relations = await findRelationsBy_FolderId(folderId);
+		const { idFolder } = req.query;
+		const relations = await findRelationsBy_FolderId(idFolder);
 
 		console.log(`relacion(es) encontrada(s): ${relations}`);
 	} catch (error) {
